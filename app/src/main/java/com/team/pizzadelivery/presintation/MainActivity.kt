@@ -15,6 +15,9 @@ class MainActivity : AppCompatActivity() {
         Thread.sleep(3000)
         installSplashScreen()
         setContentView(R.layout.activity_main)
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container_fragment, MainFragment.newInstance())
+            .addToBackStack(null)
+            .commit()
     }
 }
