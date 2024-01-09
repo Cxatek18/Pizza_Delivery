@@ -18,7 +18,7 @@ object PizzaRepositoryImpl : PizzaRepository {
                 "Пицца $i",
                 "Описание $i",
                 i + 1000,
-                listOf(Topping("сыр $1"), Topping("колбаса $i"), Topping("помидор $i")),
+                listOf(Topping("сыр $i"), Topping("колбаса $i"), Topping("помидор $i")),
                 "Слоёное",
             )
             createPizza(pizza)
