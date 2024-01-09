@@ -7,10 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.team.pizzadelivery.R
 import com.team.pizzadelivery.databinding.FragmentMainBinding
 
 class MainFragment : Fragment() {
+
+    private lateinit var pizzaListAdapter: PizzaListAdapter
 
     private val viewModel by lazy {
         ViewModelProvider(
@@ -36,6 +39,15 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        pizzaListAdapter = PizzaListAdapter()
+        viewModel.pizzaList.observe(viewLifecycleOwner){
+            pizzaListAdapter.submitList(it)
+        }
+        binding.rvShopList.adapter = pizzaListAdapter
+    }
+
     companion object {
         fun newInstance(): MainFragment{
             return MainFragment()
@@ -45,5 +57,6 @@ class MainFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+        requireActivity().finish()
     }
 }
