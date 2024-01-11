@@ -1,5 +1,6 @@
 package com.team.pizzadelivery.presintation
 
+import android.annotation.SuppressLint
 import android.app.ActivityManager.RunningTaskInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -46,6 +47,17 @@ class MainFragment : Fragment() {
             pizzaListAdapter.submitList(it)
         }
         binding.rvShopList.adapter = pizzaListAdapter
+        setUpClickListener()
+    }
+
+
+    private fun setUpClickListener(){
+        pizzaListAdapter.pizzaOnClickListener = {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_container_fragment, PizzaDetailFragment.newIntent(it.id))
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     companion object {

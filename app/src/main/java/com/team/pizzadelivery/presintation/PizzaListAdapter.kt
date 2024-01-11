@@ -12,6 +12,8 @@ import com.team.pizzadelivery.domain.entity.Topping
 
 class PizzaListAdapter : ListAdapter<Pizza, PizzaViewHolder>(PizzaItemDiffCallback()) {
 
+    var pizzaOnClickListener: ((Pizza) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PizzaViewHolder {
         return PizzaViewHolder(
             PizzaCardBinding.inflate(
@@ -30,6 +32,10 @@ class PizzaListAdapter : ListAdapter<Pizza, PizzaViewHolder>(PizzaItemDiffCallba
             tvToppings.text = formatterListToText(tvToppings.text, pizzaItem.toppings)
             tvDough.text = formatterStringToText(tvDough.text, pizzaItem.dough)
             tvPrice.text = formatterIntToText(tvPrice.text, pizzaItem.price)
+        }
+        holder.binding.btnDetail.setOnClickListener {
+            pizzaOnClickListener?.invoke(pizzaItem)
+            true
         }
     }
 
